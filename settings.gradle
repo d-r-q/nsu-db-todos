@@ -1,0 +1,4 @@
+rootProject.name = 'todos'
+include 'todos-domain'
+include 'todos-usecases'
+
