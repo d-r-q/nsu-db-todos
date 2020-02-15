@@ -5,6 +5,8 @@ import todos.domain.TaskList
 
 interface TaskListRepo {
 
-    fun save(list: TaskList)
+    fun save(list: TaskList): TaskList
+
+    fun getAll(): Sequence<TaskList>
 
 }

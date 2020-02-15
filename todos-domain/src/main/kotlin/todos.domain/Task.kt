@@ -6,6 +6,5 @@ data class Task(
     val name: String,
     val done: Boolean,
     val priority: Priority,
-    val user: User,
     val tags: List<Tag>
 )

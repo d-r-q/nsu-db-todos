@@ -1,7 +1,7 @@
 package todos.domain
 
 
-class TaskList(
+data class TaskList(
     val id: Long?,
     val name: String,
     val tasks: List<Task>
