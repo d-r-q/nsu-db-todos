@@ -1,7 +1,2 @@
 rootProject.name = 'todos'
-include 'todos-domain'
-include 'todos-usecases'
-include 'todos-storage-mem'
-include 'todos-usecases-tests'
-include 'todos-front-console'
 
