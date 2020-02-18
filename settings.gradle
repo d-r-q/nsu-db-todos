@@ -1,3 +1,5 @@
 rootProject.name = 'todos'
 
 include 'todos-spring-traditional'
+include 'todos-fx'
+
