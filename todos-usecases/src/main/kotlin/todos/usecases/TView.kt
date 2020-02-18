@@ -1,10 +1,10 @@
 package todos.usecases
 
-interface TView {
+interface TView<E : TEvent> {
 
     fun show()
 
-    fun onEvent(e: TEvent)
+    fun onEvent(e: E)
 
 }
 

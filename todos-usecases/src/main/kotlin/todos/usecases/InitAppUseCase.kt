@@ -7,7 +7,7 @@ class InitAppUseCase(
     private val taskListRepo: TaskListRepo
 ) {
 
-    fun initApp() {
+    operator fun invoke() {
         val defaultList = DefaultTaskList()
         taskListRepo.save(defaultList)
     }

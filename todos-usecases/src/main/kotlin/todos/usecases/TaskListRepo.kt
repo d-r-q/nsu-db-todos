@@ -9,4 +9,6 @@ interface TaskListRepo {
 
     fun getAll(): Sequence<TaskList>
 
+    fun delete(id: Long)
+
 }

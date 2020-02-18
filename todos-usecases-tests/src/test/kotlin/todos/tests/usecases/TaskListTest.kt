@@ -2,8 +2,6 @@ package todos.tests.usecases
 
 import io.kotlintest.TestCaseConfig
 import io.kotlintest.matchers.sequences.shouldExist
-import io.kotlintest.matchers.sequences.shouldHaveSingleElement
-import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import todos.storage.mem.MemTaskListRepo
 import todos.usecases.InitAppUseCase
@@ -21,7 +19,7 @@ class TaskListTest : StringSpec() {
             val useCase = InitAppUseCase(taskListRepo)
 
             // When app is initialized
-            useCase.initApp()
+            useCase.invoke()
 
             // Then default list is created
             taskListRepo.getAll() shouldExist { it.name == "Default" }

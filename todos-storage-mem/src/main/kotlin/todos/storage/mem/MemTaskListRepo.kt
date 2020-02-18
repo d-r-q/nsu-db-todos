@@ -6,7 +6,7 @@ import todos.usecases.TaskListRepo
 
 class MemTaskListRepo : TaskListRepo {
 
-    private val taskLists = ArrayList<TaskList>()
+    private val taskLists = ArrayList<TaskList?>()
 
     override fun save(list: TaskList): TaskList {
         return if (list.id != null) {
@@ -20,6 +20,10 @@ class MemTaskListRepo : TaskListRepo {
     }
 
     override fun getAll(): Sequence<TaskList> =
-        taskLists.asSequence()
+        taskLists.filterNotNull().asSequence()
+
+    override fun delete(id: Long) {
+        taskLists[id.toInt()] = null
+    }
 
 }
