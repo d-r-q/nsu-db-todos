@@ -47,3 +47,7 @@ allOpen {
 noArg {
     annotation("javax.persistence.Entity")
 }
+
+springBoot {
+    mainClassName = "todos.TodosAppKt"
+}
