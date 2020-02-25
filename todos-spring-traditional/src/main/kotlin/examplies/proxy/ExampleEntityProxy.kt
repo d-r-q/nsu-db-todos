@@ -25,7 +25,7 @@ interface IEntity {
 /**
  * Сущность, которую будем проксировать.
  */
-class Entity(private val idVal: String, override val name: String, override val refs: List<String>) : IEntity {
+class ExampleEntity(private val idVal: String, override val name: String, override val refs: List<String>) : IEntity {
 
     // этот кастомный геттер нужен только для того, чтобы вывести стек вызовов при обращении к нему.
     override val id: String
@@ -43,16 +43,16 @@ class Entity(private val idVal: String, override val name: String, override val 
  * В реальной жизни, обычно всё-таки идёт обращение в БД за строкой объека и примитивные поля заполняются сразу,
  * а такая техника используется для ленивого получения связанных сущностей.
  */
-class EntityProxy(private val id: String, private val db: db) : InvocationHandler {
+class ExampleEntityProxy(private val id: String, private val db: db) : InvocationHandler {
 
     // поле инициализация которого выполнится только при первом обращении по средствам вызова лямбды
-    private val entity: Entity? by lazy { db.findById(id) }
+    private val exampleEntity: ExampleEntity? by lazy { db.findById(id) }
 
     override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
         println("Handling invocation ${proxy::class.simpleName}.${method.name}($args)")
 
         // локальная переменная для того, чтобы убедить компилятор, что entity не превратится в null после проверки
-        val e = entity ?: throw RuntimeException("Object with id=$id not found")
+        val e = exampleEntity ?: throw RuntimeException("Object with id=$id not found")
         return when (method.name) {
             // специальным образом обрабатываем вызов метода toString, чтобы вывести именно объект реализующий прокси, а не проксируемый объект
             // в вызове obj.toString()
@@ -81,7 +81,7 @@ inline fun <reified T> createProxy(id: String): T =
     Proxy.newProxyInstance(
         T::class.java.classLoader,
         arrayOf(T::class.java),
-        EntityProxy(id, db)
+        ExampleEntityProxy(id, db)
     ) as T
 
 fun main() {
