@@ -52,13 +52,15 @@ class ExampleEntityProxy(private val id: String, private val db: db) : Invocatio
         println("Handling invocation ${proxy::class.simpleName}.${method.name}($args)")
 
         // локальная переменная для того, чтобы убедить компилятор, что entity не превратится в null после проверки
-        val e = exampleEntity ?: throw RuntimeException("Object with id=$id not found")
         return when (method.name) {
             // специальным образом обрабатываем вызов метода toString, чтобы вывести именно объект реализующий прокси, а не проксируемый объект
             // в вызове obj.toString()
             "toString" -> toString()
             // в противном случае просто вызываем найденный метод на нужном объекте с полученными параметрами
-            else -> method.invoke(e, *(args ?: arrayOf()))
+            else -> {
+                val e = exampleEntity ?: throw RuntimeException("Object with id=$id not found")
+                method.invoke(e, *(args ?: arrayOf()))
+            }
         }
     }
 
